@@ -1,0 +1,34 @@
+/*override some bootstrap styles*/
+
+a{
+	color: #aaaaaa;
+}
+a:hover{
+	background-color: #000000;
+	color: #ffffff;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #00ff00;
+}
+
+.nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid #00ff00;
+  border-radius: 4px 4px 0 0;
+}
+.nav-tabs > li > a:hover {
+  background-color: #10ff10;
+  border-color: #00ff00;
+  color: #ffffff;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: #000000;
+  cursor: default;
+  background-color: #40FF60;/*80ff90*/
+  border: 1px solid #00ff00;
+  border-bottom-color: transparent;
+}

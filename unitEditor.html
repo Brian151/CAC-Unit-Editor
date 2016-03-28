@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>CAC Unit Editor</title>
+		<meta name="description" content="Crystalien Conflict Unit Editor">
+		<meta name="author" content="ETXAlienRobot201">
+		<meta name="organization" content="Crystalien Redux Project">
+		<link rel="stylesheet" href="css/Bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" href="css/general.css">
+		<link rel="stylesheet" href="css/tabs.css">
+		<link rel="shortcut icon" href="favicon.ico">
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+	<!-- might re-add, but not as original plan
+		<div id="spr">
+			<br/><br/><br/><br/><br/><br/><br/><br/>
+			<font color="red"><b>SPRITE PREVIEW NOT YET AVAILABLE!</b></font>
+		</div>-->
+		<div class="contentWrapper">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#infoTab">Info</a></li>
+				<li><a data-toggle="tab" href="#editorTab">Editor</a></li>
+				<li><a data-toggle="tab" href="#infoStatTab">Stat Guide</a></li>
+				<li><a data-toggle="tab" href="#creditTab">Credits &amp; Copyright</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="infoTab" class="tab-pane fade in active">
+					<div class="contentWrapper tabbedContentWrapper">
+						<h2>
+						CAC Unit Editor<br/>
+						<img src="img/banner.png"/>
+						</h2>
+						<br/>
+						<h3>Introduction</h3>
+						<p>
+						When Crystalien Conflict was originally written, the stats were hard-coded into an ActionScript 2 class called "UnitStats".
+						This class contained the hard-coded stats for every unit in the game.
+						This may have worked for the original developers, but it doesn't for the Crystalien Redux team,
+						or for those who would like to add custom units to the game. Before it had been pulicly released
+						how the game actually internally stores unit and building stats, the Mars Mission Wiki user
+						DracoSupreme created the CAC Unit Editor Idea page, on July 18, 2013. This page would undergo many updates,
+						and eventually was subjected to a bunch of redundant custom unit entries. On nov 28, 2013, 
+						ETXAlienRobot201 locked the page and assumed ownership over it, following him publicly releasing
+						the actual stat names and their purpose, and some clean-up. The page has not seen any other significant updates since.
+						</p>
+						<h3>From concept to application</h3>
+						<p>
+						On May 12, 2015, ETXAlienRobot201 announced he would start development of the actual program
+						using HTML and JavaScript, with some CSS to make it look cool. On May 20, 2015, an early screenshot
+						of the editor was released. Later on the same day, a screenshot of the developing CSS theme
+						was also released. Even LATER, another screenshot was released, where the stat inputs had been
+						sorted into groups and compacted together. The first live version of the program was also uploaded
+						to the Crystalien Redux website that day. No More screenshots were posted, however, progress updates
+						did continue. On may 21st, 2015, the ability to export ActionScript2 code was added. On november
+						8, 2015, the JSON database from which the input fields were to be automatically generated, was
+						uploaded, however not implemented. A small bug with ActionScript export was also corrected. The project
+						went silent until March 16, 2016, when the JSON database was hard-coded into the code, and was
+						partially implmeneted. The ability to export multiple units at once, manage many active files and units at once, 
+						and export to INI files was added. On march 19, 2016, The entire user interface was given a graphical
+						and organizational overhaul. Tabs were implmeneted to easier manage stat groups. The program, itself, was also
+						split into tabs. The JSON database was fully implmented, but remains hard-coded. Stat input fields
+						are now generated automatically using the database, all of the original hard-coded input fields
+						were removed.
+						</p>
+					</div>
+				</div>
+				<div id="editorTab" class="tab-pane fade">
+					<div class="contentWrapper tabbedContentWrapper">
+						<h2>Editor</h2>
+						<ul id="statTabs" class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#statscommon">common</a></li>
+						</ul>
+						<div id="statList" class="tab-content">
+							<div id="statscommon" class="tab-pane fade in active">
+								<h3>common stats:</h3>
+							</div>
+						</div>
+						<hr/>
+						Current Files: <span id="fileList"></span><br/>
+						Current Units: <span id="unitList"></span><br/>
+						ID (NO UNDERSCORES): <input id="IDtxt" type="text" value="PKMN151"></input><br/>
+						Filename: <input id="filetxt" type="text" value="PokemonStats"></input><br/>
+						Special Comment <span title="SINGLE UNIT ONLY!">(*)</span>: <input id="ascomtxt" type="text" value="Mew"></input><br/>
+						EXPORT MODE: <select id="Emode">
+						<option value="AS">Flash Actionscript</option>
+						<option value="INI"selected >INI</option>
+						</select>&nbsp;
+						<button onClick="dumpStatData()">EXPORT UNIT!</button>&nbsp;
+						<button onClick="dumpStatData(false,true)">EXPORT FILE!</button><br/>
+						File: <input id="fileSel" type="text" value="PokemonStats"></input>&nbsp;
+						Unit: <input id="unitSel" type="text" value="PKMN151"></input>
+						<button onClick="getStatData()">LOAD!</button>
+						<button onClick="dumpStatData(true)">SAVE!</button>
+						<button onClick="resetForm()">RESET FORM!</button>
+					</div>
+				</div>
+				<div id="infoStatTab" class="tab-pane fade">
+					<div class="contentWrapper tabbedContentWrapper">
+						<h2>Stat Documentation</h2>
+						<h3>The Stats (id, type, purpose)</h3>
+						<ul id="statInfoList">
+							<li>
+								common
+								<ul id="statInfo_common">
+								</ul>
+							</li>
+						</ul>
+						<h3>Variable Types Lookup</h3>
+						<ul id="varInfoList">
+							<li>boolean : a variable that can be true(1,on) or false(0,off)</li>
+							<li>number : any whole or partial number</li>
+							<li>string : text</li>
+							<li>array : a variable that stores other variables inside it</li>
+							<li>other : some variable that is defined case by case &amp; has no specific type, might even be code(home)</li>
+						</ul>
+					</div>
+				</div>
+				<div id="creditTab" class="tab-pane fade">
+					<div class="contentWrapper tabbedContentWrapper">
+						<h2>Credits &amp; Copyrights</h2>
+						<h4>Credits</h4>
+						<ul class="nobullets">
+							<li>concept by <a class="link" href="http://marsmissionwiki.wikifoundry.com/account/DracoSupreme" target="_blank">DracoSupreme</a></li>
+							<li>code by <a class="link" href="http://marsmissionwiki.wikifoundry.com/account/ETXAlienRobot201" target="_blank">ETXAlienRobot201</a></li>
+							<li>CAC commissioned by <a class="link" href="http://lego.com" target="_blank">LEGO</a> &amp; developed by <a class="link" href="http://4t2.ca" target="_blank">4t2 Multimedia</a></li>
+						</ul>
+						<h4>Technologies</h4>
+						<ul class="nobullets">
+							<li><a class="link" href="https://github.com/eligrey/FileSaver.js/" target="_blank">FileSaver.js</a></li>
+							<li><a class="link" href="https://github.com/Brian151/INI.js" target="_blank">INI.js</a></li>
+							<li><a class="link" href="https://jquery.com/" target="_blank">jQuery</a></li>
+							<li><a class="link" href="http://getbootstrap.com/" target="_blank">Bootstrap</a> (suggested by <a class="link" href="http://marsmissionwiki.wikifoundry.com/account/299792458" target="_blank">"Lightspeed"</a>, the programmer of CAC)</li>
+							<li>Programmed with a mixture of HTML, JavaScript, and CSS</li>
+						</ul>
+						<h4>Copyrights</h4>
+						<ul class="nobullets">
+							<li>CAC and its artwork copyright &copy; LEGO 2007-2016</li>
+							<li>Original CAC Unit Editor concept copyright &copy; DracoSupreme</li>
+							<li>CAC Unit Editor application copyright &copy; <a class="link" href="http://crystalien-redux.com/" target="_blank">Crystalien Redux</a> 2015-2016</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="scripts/libs/JQuery/jquery.min.js"></script>
+		<!--<script src="DB/StatsDB.js"></script>-->
+		<script src="scripts/libs/Bootstrap/bootstrap.min.js"></script>
+		<script src="scripts/libs/FileSaver/FileSaver.min.js"></script>
+		<script src="scripts/libs/INI/INI.js"></script>
+		<script src="scripts/dataHandler.js"></script>
+		<script type="text/javascript">
+			var db = null;
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					db = JSON.parse(xmlhttp.responseText);
+					initEditor();
+				}
+			};
+			xmlhttp.open("GET", "DB/StatsDB.json", true);
+			xmlhttp.send();
+		</script>
+	</body>
+</html>
