@@ -92,9 +92,9 @@
 			"id":"home",
 			"type":"other",
 			"docu":"where this unit should be spawned from",
-			"mapAS":["@OVR_STR"],
-			"mapINI":["@OVR_DEFAULT"],
-			"mapForm":["@OVR_DEFAULT"],
+			"mapAS":["@OVR_ASCODE"],
+			"mapINI":["@OVR_UH"],
+			"mapForm":["@OVR_UH"],
 			"default":{"AS":"\"BA_\"","INI":"BA_","FORM":"BA_"},
 			"tab":"common"
 		},
