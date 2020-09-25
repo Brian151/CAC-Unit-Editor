@@ -1,13 +1,18 @@
-var mode = "AS";
+var mode = "JSON";
+/*
 mode = "INI";
 var INIStore = new INIManager();
 INIStore.registerINI("","PokemonStats",false);
 var currFile = INIStore.checkoutINI("PokemonStats");
 currFile.removeSection("main");
 currFile.addSection("PKMN151");
+*/
 var fileList = document.getElementById("fileList");
 var unitList = document.getElementById("unitList");
+var allfiles = [];
+var currFile = "PokemonStats";
 
+//broken, TODO: fix
 function listFiles() {
 	var out = [];
 	var out2 = [];
@@ -22,7 +27,7 @@ function listFiles() {
 	fileList.innerHTML = "[ " + out.join(" , ") + " ]";
 	unitList.innerHTML = "[ " + out2.join(" , ") + " ]";
 }
-listFiles();
+// listFiles();
 
 function resetForm() {
 	for (var i=0; i < db.statList.length; i++) {
@@ -273,7 +278,52 @@ function getStatData() {
 	}
 }
 
-function dumpStatData(internal,wholeFile){
+function dumpStatData(internal,wholeFile) {
+	var dump = getFormInputs();
+	// these should be intitiallized elsewhere...
+	var IDtxt = document.getElementById("IDtxt");
+	var filetxt = document.getElementById("filetxt");
+	var ascomtxt = document.getElementById("ascomtxt");
+	
+	var fileName = filetxt.value;
+	console.log(dump);
+	/*if (internal) {
+		// TODO
+	} else {
+			var out = "";
+			switch (mode) {
+				case "AS" : 
+					alert("pending removal");
+					break;
+					
+				case "INI" :
+					alert("pending removal");
+					break;
+					
+				case "JSON" : 
+					dumpcleaned = houseCleaner(dump);
+					if (!wholeFile) {
+						outobj = {}
+						outobj[ID] = dumpcleaned;
+						out = JSON.stringify(outobj);
+					} else {
+						outobj = {}
+						
+						for (var i in allfiles) {
+							var curr = allfiles[i];
+							outobj[i] = curr;
+						}
+						out = JSON.stringify(outobj);
+					}
+					break;
+			}
+			
+		var blob = new Blob([out], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, fileName + ".json");
+	}*/
+}
+
+function dumpStatDatawtf(internal,wholeFile){
 	var IDtxt = document.getElementById("IDtxt");
 	var filetxt = document.getElementById("filetxt");
 	var ascomtxt = document.getElementById("ascomtxt");
@@ -370,14 +420,21 @@ function dumpStatData(internal,wholeFile){
 }
 
 function getFormInputs(){
-var out = [];
+var out = {};
 	for (var i=0; i < db.statList.length; i++){
 		var curr = db.statList[i];
 		var curr2 = document.getElementById(curr.id);
 		if (curr.optLim) {
-			out.push({"id":curr.id,"value":curr2.options[curr2.selectedIndex].value});
+			
+			var value = curr2.options[curr2.selectedIndex].value;
+			//var realValue = convertData(curr.type,curr2); // TODO
+			out[curr.id] = value; // replace with realValue once implemented
+			//out.push({"id":curr.id,"value":curr2.options[curr2.selectedIndex].value});
 		} else {
-			out.push({"id":curr.id,"value":curr2.value});
+			var value = curr2.value;
+			//var realValue = convertData(curr.type,curr2);
+			out[curr.id] = value;
+			//out.push({"id":curr.id,"value":curr2.value});
 		}
 	}
 	var modeT = document.getElementById("Emode");
